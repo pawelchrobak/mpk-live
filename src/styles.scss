@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+app-map-view * {
+    z-index: -999;
+}
+
+.my-div-icon {
+    display: block;
+    height: 20px;
+    width: 50px;
+    border: solid 1px black;
+    background: white;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+
+}

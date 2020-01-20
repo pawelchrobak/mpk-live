@@ -1,0 +1,3 @@
+<div id="mapView" leaflet [leafletOptions]="options">
+    <div *ngFor="let marker of vehicleMarkers" [leafletLayer]="marker"></div>
+</div>

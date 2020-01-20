@@ -1,0 +1,10 @@
+<div class="card" style="width: 20rem;">
+    <div class="card-header">LiveMPK</div>
+    <div class="card-body">
+      <h5 *ngIf="lineNumbers.length == 0" class="card-title">Ładowanie...</h5>
+      <div *ngIf="lineNumbers.length != 0">
+        <h5 class="card-title">Filtruj linie:</h5>
+        <button class="btn btn-outline-primary mr-1 mb-1" *ngFor="let num of lineNumbers">{{num}}</button>
+      </div>
+    </div>
+  </div>
