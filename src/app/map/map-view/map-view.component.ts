@@ -29,19 +29,34 @@ export class MapViewComponent implements OnInit {
       center: latLng(51.11, 17.022222)
     };
 
-    this.mpkDataService.getLocationData().subscribe((data: ApiResponse) => {
-      for (let record of data.result.records) {
-        let line = record['Nazwa_Linii'];
-        let lng = record['Ostatnia_Pozycja_Dlugosc'];
-        let lat = record['Ostatnia_Pozycja_Szerokosc']
+    // this.mpkDataService.getLocationData().subscribe((data: ApiResponse) => {
+    //   for (let record of data.result.records) {
+    //     let line = record['Nazwa_Linii'];
+    //     let lng = record['Ostatnia_Pozycja_Dlugosc'];
+    //     let lat = record['Ostatnia_Pozycja_Szerokosc']
+
+    //     let newIcon = divIcon({className: 'my-div-icon', html: line})
+
+    //     let newMarker = marker([lat,lng], {icon: newIcon} );
+    //     this.vehicleMarkers.push(newMarker)
+    //   }
+    //   // console.log(data);
+    // })
+
+    this.mpkDataService.getLocationDataAlternative(['146'],['32']).subscribe((data) => {
+      console.log(data);
+      for (let item of data) {
+        let line = item['name'];
+        let lng = item['y'];
+        let lat = item['x']
 
         let newIcon = divIcon({className: 'my-div-icon', html: line})
 
         let newMarker = marker([lat,lng], {icon: newIcon} );
         this.vehicleMarkers.push(newMarker)
       }
-      console.log(data);
     })
+
     let myIcon = divIcon({className: 'my-div-icon', html: "123"});
     this.mpkLayer = marker([51.11, 17.022222], {icon: myIcon});
 

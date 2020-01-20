@@ -15,11 +15,18 @@ export class SidePanelComponent implements OnInit {
   constructor(private mpkDataService: MpkDataService) { }
 
   ngOnInit() {
-    this.mpkDataService.getAllLineNumbers().subscribe((data: ApiResponse) => {
-      for (let item of data.result.records) {
-        this.lineNumbers.push(item['Nazwa_Linii']);
+    // this.mpkDataService.getAllLineNumbers().subscribe((data: ApiResponse) => {
+    //   for (let item of data.result.records) {
+    //     this.lineNumbers.push(item['Nazwa_Linii']);
+    //   }
+    // });
+
+    this.mpkDataService.getLocationDataAlternative(['146'],['32']).subscribe((data) => {
+      console.log(data);
+      for (let item of data) {
+        this.lineNumbers.push(item['name']);
       }
-    });
+    })
   }
 
 }
