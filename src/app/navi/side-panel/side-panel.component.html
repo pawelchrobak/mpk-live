@@ -1,10 +1,11 @@
 <div class="card" style="width: 20rem;">
     <div class="card-header">LiveMPK</div>
     <div class="card-body">
-      <h5 *ngIf="lineNumbers.length == 0" class="card-title">Ładowanie...</h5>
-      <div *ngIf="lineNumbers.length != 0">
-        <h5 class="card-title">Filtruj linie:</h5>
-        <button class="btn btn-outline-primary mr-1 mb-1" *ngFor="let num of lineNumbers">{{num}}</button>
-      </div>
+      <h5 class="card-title">Autobusy:</h5>
+      <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" *ngFor="let num of busLineNumbers">{{num}}</button>
+      <h5 class="card-title">Tramwaje:</h5>
+      <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" *ngFor="let num of tramLineNumbers">{{num}}</button>
+      <h5 class="card-title">DEV-TOOLS:</h5>
+      <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" (click)="reload()">RELOAD DATA</button>
     </div>
   </div>

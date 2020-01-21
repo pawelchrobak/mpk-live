@@ -1,6 +1,6 @@
 # LiveMPK
 
-Map for viewing current location of busses and trams in Wrocław.
+Map for viewing current location of busses and trams in Wrocław. Currently WIP.
 
 Uses public API avalible at https://www.wroclaw.pl/open-data/dataset/lokalizacjapojazdowkomunikacjimiejskiejnatrasie_data 
 

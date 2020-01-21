@@ -9,24 +9,31 @@ import { ApiResponse } from 'src/app/model/api-response';
 })
 export class SidePanelComponent implements OnInit {
 
-  private lineNumbers: Array<string> = [];
+  private busLineNumbers: Array<string> = [];
+  private tramLineNumbers: Array<string> = [];
 
+  reload() {
+    console.log('called for reload...')
+    this.mpkDataService.Reload();
+  }
 
   constructor(private mpkDataService: MpkDataService) { }
 
   ngOnInit() {
-    // this.mpkDataService.getAllLineNumbers().subscribe((data: ApiResponse) => {
-    //   for (let item of data.result.records) {
-    //     this.lineNumbers.push(item['Nazwa_Linii']);
-    //   }
-    // });
+    for (let no of this.mpkDataService.getAllBusNumbers()) {
+      this.busLineNumbers.push(no);
+    }
 
-    this.mpkDataService.getLocationDataAlternative(['146'],['32']).subscribe((data) => {
-      console.log(data);
-      for (let item of data) {
-        this.lineNumbers.push(item['name']);
-      }
-    })
+    for (let no of this.mpkDataService.getAllTramNumbers()) {
+      this.tramLineNumbers.push(no);
+    }
+
+    // this.mpkDataService.getLocationDataAlternative(['146'],['32']).subscribe((data) => {
+    //   console.log(data);
+    //   for (let item of data) {
+    //     this.lineNumbers.push(item['name']);
+    //   }
+    // })
   }
 
 }

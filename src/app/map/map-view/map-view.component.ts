@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { latLng, LatLng, tileLayer, marker, divIcon } from 'leaflet';
 import { MpkDataService } from 'src/app/services/mpk-data.service';
 import { ApiResponse } from 'src/app/model/api-response';
+import { MpkVehicle } from 'src/app/model/mpk-vehicle';
+import { MpkLine } from 'src/app/model/mpk-line';
 
 
 @Component({
@@ -27,7 +29,18 @@ export class MapViewComponent implements OnInit {
       ],
       zoom: 13,
       center: latLng(51.11, 17.022222)
+
+      
     };
+
+    this.mpkDataService.stateUpdate.subscribe((event) => {
+      switch (event) {
+        case 'reload':
+          console.log('got event "reload"');
+          break;
+      }
+    })
+
 
     // this.mpkDataService.getLocationData().subscribe((data: ApiResponse) => {
     //   for (let record of data.result.records) {
@@ -43,16 +56,15 @@ export class MapViewComponent implements OnInit {
     //   // console.log(data);
     // })
 
-    this.mpkDataService.getLocationDataAlternative(['146'],['32']).subscribe((data) => {
+    this.mpkDataService.getLocationDataAlternative(this.mpkDataService.getAllBusNumbers(),this.mpkDataService.getAllTramNumbers()).subscribe((data) => {
       console.log(data);
       for (let item of data) {
-        let line = item['name'];
-        let lng = item['y'];
-        let lat = item['x']
 
-        let newIcon = divIcon({className: 'my-div-icon', html: line})
+        let newVehicle = new MpkVehicle(new MpkLine(item.name,item.type),item.x,item.y)
 
-        let newMarker = marker([lat,lng], {icon: newIcon} );
+        let newIcon = divIcon({className: 'my-div-icon', html: newVehicle.line.lineNo})
+
+        let newMarker = marker([newVehicle.lat,newVehicle.lng], {icon: newIcon} );
         this.vehicleMarkers.push(newMarker)
       }
     })
