@@ -3,7 +3,7 @@ export class MpkLine {
     public type: string;
 
     constructor (lineNo: string, type: string) {
-        this.lineNo = lineNo;
+        this.lineNo = lineNo.toUpperCase();
         this.type = type;
     }
 }

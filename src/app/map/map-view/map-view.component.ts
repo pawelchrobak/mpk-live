@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { latLng, LatLng, tileLayer, marker, divIcon } from 'leaflet';
+import { latLng, tileLayer, marker, divIcon } from 'leaflet';
 import { MpkDataService } from 'src/app/services/mpk-data.service';
-import { ApiResponse } from 'src/app/model/api-response';
 import { MpkVehicle } from 'src/app/model/mpk-vehicle';
-import { MpkLine } from 'src/app/model/mpk-line';
 
 
 @Component({
@@ -18,6 +16,17 @@ export class MapViewComponent implements OnInit {
   private vehicleMarkers: Array<any> = [];
 
   constructor(private mpkDataService: MpkDataService) { }
+
+  private drawVehiclesToMap(list: Array<MpkVehicle>) {
+    this.vehicleMarkers = [];
+    
+    for (let vehicle of list) {
+      let newIcon = divIcon({className: 'my-div-icon', html: vehicle.line.lineNo});
+      let newMarker = marker([vehicle.lat,vehicle.lng], {icon: newIcon} );
+      this.vehicleMarkers.push(newMarker)
+    }
+  }
+
 
   ngOnInit() {
     this.options = {
@@ -36,41 +45,15 @@ export class MapViewComponent implements OnInit {
     this.mpkDataService.stateUpdate.subscribe((event) => {
       switch (event) {
         case 'reload':
-          console.log('got event "reload"');
+          this.mpkDataService.updateLocationData();
+          break;
+        case 'vehicle-list-update':
+          this.drawVehiclesToMap(this.mpkDataService.getAllVehicles());
           break;
       }
     })
 
-
-    // this.mpkDataService.getLocationData().subscribe((data: ApiResponse) => {
-    //   for (let record of data.result.records) {
-    //     let line = record['Nazwa_Linii'];
-    //     let lng = record['Ostatnia_Pozycja_Dlugosc'];
-    //     let lat = record['Ostatnia_Pozycja_Szerokosc']
-
-    //     let newIcon = divIcon({className: 'my-div-icon', html: line})
-
-    //     let newMarker = marker([lat,lng], {icon: newIcon} );
-    //     this.vehicleMarkers.push(newMarker)
-    //   }
-    //   // console.log(data);
-    // })
-
-    this.mpkDataService.getLocationDataAlternative(this.mpkDataService.getAllBusNumbers(),this.mpkDataService.getAllTramNumbers()).subscribe((data) => {
-      console.log(data);
-      for (let item of data) {
-
-        let newVehicle = new MpkVehicle(new MpkLine(item.name,item.type),item.x,item.y)
-
-        let newIcon = divIcon({className: 'my-div-icon', html: newVehicle.line.lineNo})
-
-        let newMarker = marker([newVehicle.lat,newVehicle.lng], {icon: newIcon} );
-        this.vehicleMarkers.push(newMarker)
-      }
-    })
-
-    let myIcon = divIcon({className: 'my-div-icon', html: "123"});
-    this.mpkLayer = marker([51.11, 17.022222], {icon: myIcon});
+    this.mpkDataService.updateLocationData();
 
     // this.vehicleMarkers.push(marker([51.11, 17.09], {icon: myIcon}));
     // this.vehicleMarkers.push(marker([51.11, 17.06], {icon: myIcon}));
