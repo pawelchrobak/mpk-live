@@ -1,0 +1,5 @@
+<h5 class="card-title">Autobusy:</h5>
+<button [className]="line.active ? 'btn btn-outline-primary mr-1 mb-1 btn-sm' : 'btn btn-outline-danger mr-1 mb-1 btn-sm'" *ngFor="let line of busLinesStatus" (click)="test(line)">{{line.lineNo}}</button>
+<h5 class="card-title">Tramwaje:</h5>
+<button [className]="line.active ? 'btn btn-outline-primary mr-1 mb-1 btn-sm' : 'btn btn-outline-danger mr-1 mb-1 btn-sm'" *ngFor="let line of tramLinesStatus" (click)="test(line)">{{line.lineNo}}</button>
+

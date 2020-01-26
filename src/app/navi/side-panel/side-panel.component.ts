@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MpkDataService } from 'src/app/services/mpk-data.service';
-import { ApiResponse } from 'src/app/model/api-response';
 
 @Component({
   selector: 'app-side-panel',
@@ -15,6 +14,14 @@ export class SidePanelComponent implements OnInit {
   reload() {
     console.log('called for reload...')
     this.mpkDataService.Reload();
+  }
+
+  startAutoRefresh() {
+    this.mpkDataService.startAutoUpdate();
+  }
+
+  stopAutoRefresh() {
+    this.mpkDataService.stopAutoUpdate();
   }
 
   constructor(private mpkDataService: MpkDataService) { }

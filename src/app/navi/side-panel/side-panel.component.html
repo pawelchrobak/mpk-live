@@ -1,11 +1,12 @@
 <div class="card" style="width: 20rem;">
     <div class="card-header">LiveMPK</div>
     <div class="card-body">
-      <h5 class="card-title">Autobusy:</h5>
-      <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" *ngFor="let num of busLineNumbers">{{num}}</button>
-      <h5 class="card-title">Tramwaje:</h5>
-      <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" *ngFor="let num of tramLineNumbers">{{num}}</button>
+      <app-line-picker></app-line-picker>
       <h5 class="card-title">Ustawienia:</h5>
       <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" (click)="reload()">Odśwież położenie</button>
+      <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" (click)="startAutoRefresh()">Uruchom autoodświeżanie</button>
+      <button class="btn btn-outline-primary mr-1 mb-1 btn-sm" (click)="stopAutoRefresh()">Zatrzymaj autoodświeżanie</button>
     </div>
+
+
   </div>
